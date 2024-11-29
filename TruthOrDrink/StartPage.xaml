@@ -15,7 +15,7 @@
         <!-- Header met iconen -->
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
             <!-- Instellingen -->
-            <ImageButton Source="settings_icon.png"
+            <ImageButton Source="cog.png"
                          HorizontalOptions="Start"
                          VerticalOptions="Center"
                          WidthRequest="40"
@@ -35,25 +35,21 @@
                     Clicked="OnAddQuestionsClicked">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <!-- Rode kleur bovenaan -->
                         <GradientStop Color="Red" Offset="0.0" />
-                        <!-- Lichtblauwe kleur onderaan -->
                         <GradientStop Color="Blue" Offset="1.5" />
-                        <!-- Lichtblauw -->
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
         </Grid>
 
         <!-- Midden -->
-        <StackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center">
-            <!-- Welkom tekst -->
-            <Label x:Name="WelkomLabel"
-                   Text="Welkom"
-                   FontSize="32"
-                   TextColor="White"
+        <StackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" Spacing="-55">
+            <!-- Welkom afbeelding -->
+            <Image Source="welkom.png"
+                   Aspect="AspectFit"
+                   HeightRequest="150"
+                   WidthRequest="300"
                    HorizontalOptions="Center" />
-
 
             <!-- Logo -->
             <Image Source="todlogo.png"
@@ -75,11 +71,8 @@
                     Clicked="OnPlayClicked">
                 <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <!-- Rode kleur bovenaan -->
                         <GradientStop Color="Red" Offset="0.0" />
-                        <!-- Lichtblauwe kleur onderaan -->
                         <GradientStop Color="Blue" Offset="1.5" />
-                        <!-- Lichtblauw -->
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
