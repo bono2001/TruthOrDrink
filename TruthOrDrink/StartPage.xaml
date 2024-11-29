@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.StartPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <!-- Gradient kleuren -->
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        <!-- Header met iconen -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+            <!-- Instellingen -->
+            <ImageButton Source="settings_icon.png"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center"
+                         WidthRequest="40"
+                         HeightRequest="40"
+                         Clicked="OnSettingsClicked" />
+
+            <!-- Eigen vragen toevoegen -->
+            <Button Text="Eigen vragen toevoegen"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Padding="10,5"
+                    FontSize="14"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    CornerRadius="10"
+                    TextColor="White"
+                    Clicked="OnAddQuestionsClicked">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <!-- Rode kleur bovenaan -->
+                        <GradientStop Color="Red" Offset="0.0" />
+                        <!-- Lichtblauwe kleur onderaan -->
+                        <GradientStop Color="Blue" Offset="1.5" />
+                        <!-- Lichtblauw -->
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </Grid>
+
+        <!-- Midden -->
+        <StackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center">
+            <!-- Welkom tekst -->
+            <Label x:Name="WelkomLabel"
+                   Text="Welkom"
+                   FontSize="32"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
+
+
+            <!-- Logo -->
+            <Image Source="todlogo.png"
+                   Aspect="AspectFit"
+                   HeightRequest="150"
+                   WidthRequest="150"
+                   HorizontalOptions="Center" />
+        </StackLayout>
+
+        <!-- Onderste knop -->
+        <StackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center">
+            <Button Text="Spelen"
+                    FontSize="18"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    CornerRadius="10"
+                    Padding="20,10"
+                    TextColor="White"
+                    Clicked="OnPlayClicked">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <!-- Rode kleur bovenaan -->
+                        <GradientStop Color="Red" Offset="0.0" />
+                        <!-- Lichtblauwe kleur onderaan -->
+                        <GradientStop Color="Blue" Offset="1.5" />
+                        <!-- Lichtblauw -->
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackLayout>
+    </Grid>
+</ContentPage>

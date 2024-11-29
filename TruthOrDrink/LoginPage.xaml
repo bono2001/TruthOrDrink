@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+    <!-- Achtergrond kleur met gradiënt -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <!-- Gradient kleuren -->
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="15" VerticalOptions="Center">
+            <!-- Titel -->
+            <Label Text="Login"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
+
+            <!-- Gebruikersnaam -->
+            <Entry x:Name="UsernameEntry"
+                   Placeholder="Gebruikersnaam"
+                   TextColor="Black"
+                   BackgroundColor="White" />
+
+            <!-- Wachtwoord -->
+            <Entry x:Name="PasswordEntry"
+                   Placeholder="Wachtwoord"
+                   IsPassword="True"
+                   TextColor="Black"
+                   BackgroundColor="White" />
+
+            <!-- Inloggen knop -->
+            <Button Text="Log In"
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Clicked="OnLoginClicked" />
+
+            <!-- Foutmelding -->
+            <Label x:Name="ErrorLabel"
+                   TextColor="Red"
+                   IsVisible="False"
+                   HorizontalOptions="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

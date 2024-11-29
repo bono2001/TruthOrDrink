@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.MainPage">
+    
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <!-- Gradient kleuren -->
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="*,2*,2*,2*" Padding="20">
+        <!-- Placeholder voor Logo -->
+        <Image Source="todlogo.png"
+               Grid.Row="1"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               HeightRequest="200" 
+               WidthRequest="200" />
+
+        <!-- Buttons -->
+        <StackLayout Grid.Row="3" Spacing="20" VerticalOptions="End">
+            <!-- Registreer knop -->
+            <Button Text="Registreren"
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    FontSize="18"
+                    CornerRadius="10"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    Clicked="OnRegisterClicked" />
+
+            <!-- Login knop -->
+            <Button Text="Log In"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    FontSize="18"
+                    CornerRadius="10"
+                    BorderColor="Black"
+                    BorderWidth="2"
+                    Clicked="OnLoginClicked" />
+        </StackLayout>
+    </Grid>
+</ContentPage>
