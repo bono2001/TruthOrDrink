@@ -26,10 +26,13 @@ namespace TruthOrDrink
                     {
                         Text = "Wat is je naam?",
                         FontSize = 24,
-                        HorizontalOptions = LayoutOptions.Center
+                        HorizontalOptions = LayoutOptions.Center,
+                        TextColor = Colors.White
                     });
-                    var nameEntry = new Entry { Placeholder = "Naam" };
-                    DynamicLayout.Children.Add(nameEntry);
+
+                    var nameEntry = CreateStyledEntry("Naam");
+                    DynamicLayout.Children.Add(CreateStyledFrame(nameEntry));
+
                     DynamicLayout.Children.Add(CreateNextButton(() =>
                     {
                         if (string.IsNullOrWhiteSpace(nameEntry.Text))
@@ -48,10 +51,14 @@ namespace TruthOrDrink
                     {
                         Text = "Wat is je leeftijd?",
                         FontSize = 24,
-                        HorizontalOptions = LayoutOptions.Center
+                        HorizontalOptions = LayoutOptions.Center,
+                        TextColor = Colors.White
                     });
-                    var ageEntry = new Entry { Placeholder = "Leeftijd", Keyboard = Keyboard.Numeric };
-                    DynamicLayout.Children.Add(ageEntry);
+
+                    var ageEntry = CreateStyledEntry("Leeftijd");
+                    ageEntry.Keyboard = Keyboard.Numeric;
+                    DynamicLayout.Children.Add(CreateStyledFrame(ageEntry));
+
                     DynamicLayout.Children.Add(CreateNextButton(() =>
                     {
                         if (!int.TryParse(ageEntry.Text, out age) || age <= 0)
@@ -69,14 +76,19 @@ namespace TruthOrDrink
                     {
                         Text = "Wat is je geslacht?",
                         FontSize = 24,
-                        HorizontalOptions = LayoutOptions.Center
+                        HorizontalOptions = LayoutOptions.Center,
+                        TextColor = Colors.White
                     });
+
                     var genderPicker = new Picker
                     {
                         ItemsSource = new List<string> { "Man", "Vrouw", "Anders" },
-                        Title = "Kies je geslacht"
+                        Title = "Kies je geslacht",
+                        BackgroundColor = Colors.White,
+                        TextColor = Colors.Black
                     };
-                    DynamicLayout.Children.Add(genderPicker);
+                    DynamicLayout.Children.Add(CreateStyledFrame(genderPicker));
+
                     DynamicLayout.Children.Add(CreateNextButton(() =>
                     {
                         if (genderPicker.SelectedItem == null)
@@ -95,10 +107,14 @@ namespace TruthOrDrink
                     {
                         Text = "Wat is je e-mailadres?",
                         FontSize = 24,
-                        HorizontalOptions = LayoutOptions.Center
+                        HorizontalOptions = LayoutOptions.Center,
+                        TextColor = Colors.White
                     });
-                    var emailEntry = new Entry { Placeholder = "E-mailadres", Keyboard = Keyboard.Email };
-                    DynamicLayout.Children.Add(emailEntry);
+
+                    var emailEntry = CreateStyledEntry("E-mailadres");
+                    emailEntry.Keyboard = Keyboard.Email;
+                    DynamicLayout.Children.Add(CreateStyledFrame(emailEntry));
+
                     DynamicLayout.Children.Add(CreateNextButton(() =>
                     {
                         if (emailEntry.Text != "test")
@@ -116,10 +132,14 @@ namespace TruthOrDrink
                     {
                         Text = "Kies een wachtwoord",
                         FontSize = 24,
-                        HorizontalOptions = LayoutOptions.Center
+                        HorizontalOptions = LayoutOptions.Center,
+                        TextColor = Colors.White
                     });
-                    var passwordEntry = new Entry { Placeholder = "Wachtwoord", IsPassword = true };
-                    DynamicLayout.Children.Add(passwordEntry);
+
+                    var passwordEntry = CreateStyledEntry("Wachtwoord");
+                    passwordEntry.IsPassword = true;
+                    DynamicLayout.Children.Add(CreateStyledFrame(passwordEntry));
+
                     DynamicLayout.Children.Add(CreateNextButton(() =>
                     {
                         if (passwordEntry.Text != "test")
@@ -137,12 +157,15 @@ namespace TruthOrDrink
                     {
                         Text = "Bevestig je gegevens:",
                         FontSize = 24,
-                        HorizontalOptions = LayoutOptions.Center
+                        HorizontalOptions = LayoutOptions.Center,
+                        TextColor = Colors.White
                     });
-                    DynamicLayout.Children.Add(new Label { Text = $"Naam: {userName}" });
-                    DynamicLayout.Children.Add(new Label { Text = $"Leeftijd: {age}" });
-                    DynamicLayout.Children.Add(new Label { Text = $"Geslacht: {gender}" });
-                    DynamicLayout.Children.Add(new Label { Text = $"E-mailadres: test" });
+
+                    DynamicLayout.Children.Add(new Label { Text = $"Naam: {userName}", TextColor = Colors.White });
+                    DynamicLayout.Children.Add(new Label { Text = $"Leeftijd: {age}", TextColor = Colors.White });
+                    DynamicLayout.Children.Add(new Label { Text = $"Geslacht: {gender}", TextColor = Colors.White });
+                    DynamicLayout.Children.Add(new Label { Text = $"E-mailadres: test", TextColor = Colors.White });
+
                     DynamicLayout.Children.Add(CreateNextButton(() =>
                     {
                         DisplayAlert("Succes", "Registratie voltooid!", "OK");
@@ -150,6 +173,33 @@ namespace TruthOrDrink
                     }));
                     break;
             }
+        }
+
+        private Frame CreateStyledFrame(View content)
+        {
+            return new Frame
+            {
+                Content = content,
+                BorderColor = Colors.Black,
+                CornerRadius = 10,
+                Padding = new Thickness(10),
+                WidthRequest = 270,
+                HorizontalOptions = LayoutOptions.Center,
+                Shadow = new Shadow { Opacity = 0.2f, Offset = new Point(2, 2) }
+            };
+        }
+
+        private Entry CreateStyledEntry(string placeholder)
+        {
+            return new Entry
+            {
+                Placeholder = placeholder,
+                HorizontalOptions = LayoutOptions.Center,
+                WidthRequest = 250,
+                BackgroundColor = Colors.White,
+                TextColor = Colors.Black,
+                Margin = new Thickness(0, 10, 0, 10)
+            };
         }
 
         private Button CreateNextButton(Action onClickAction)
@@ -160,7 +210,9 @@ namespace TruthOrDrink
                 BackgroundColor = Colors.Blue,
                 TextColor = Colors.White,
                 CornerRadius = 10,
-                Command = new Command(onClickAction)
+                Command = new Command(onClickAction),
+                HorizontalOptions = LayoutOptions.Center,
+                WidthRequest = 200
             };
         }
     }
