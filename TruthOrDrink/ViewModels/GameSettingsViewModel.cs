@@ -11,8 +11,23 @@ namespace TruthOrDrink.ViewModels
         public ObservableCollection<string> Categories { get; set; }
         public ObservableCollection<string> QuestionLists { get; set; }
         public ObservableCollection<string> RoundsOptions { get; set; }
+        public ObservableCollection<string> BoldnessOptions { get; set; }
 
         // Geselecteerde waarden
+        private ObservableCollection<string> _selectedBoldnessOptions = new ObservableCollection<string>();
+        public ObservableCollection<string> SelectedBoldnessOptions
+        {
+            get => _selectedBoldnessOptions;
+            set
+            {
+                if (_selectedBoldnessOptions != value)
+                {
+                    _selectedBoldnessOptions = value;
+                    OnPropertyChanged(nameof(SelectedBoldnessOptions));
+                }
+            }
+        }
+
         private string _selectedCategory;
         public string SelectedCategory
         {
@@ -22,7 +37,7 @@ namespace TruthOrDrink.ViewModels
                 if (_selectedCategory != value)
                 {
                     _selectedCategory = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedCategory)));
+                    OnPropertyChanged(nameof(SelectedCategory));
                 }
             }
         }
@@ -36,7 +51,7 @@ namespace TruthOrDrink.ViewModels
                 if (_selectedQuestionList != value)
                 {
                     _selectedQuestionList = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedQuestionList)));
+                    OnPropertyChanged(nameof(SelectedQuestionList));
                 }
             }
         }
@@ -50,21 +65,7 @@ namespace TruthOrDrink.ViewModels
                 if (_selectedRounds != value)
                 {
                     _selectedRounds = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedRounds)));
-                }
-            }
-        }
-
-        private double _selectedBoldness;
-        public double SelectedBoldness
-        {
-            get => _selectedBoldness;
-            set
-            {
-                if (_selectedBoldness != value)
-                {
-                    _selectedBoldness = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedBoldness)));
+                    OnPropertyChanged(nameof(SelectedRounds));
                 }
             }
         }
@@ -72,6 +73,7 @@ namespace TruthOrDrink.ViewModels
         // Constructor
         public GameSettingsViewModel()
         {
+            // Dropdown-opties initialiseren
             Categories = new ObservableCollection<string>
             {
                 "Algemeen",
@@ -95,7 +97,25 @@ namespace TruthOrDrink.ViewModels
                 "20 Rondes"
             };
 
-            SelectedBoldness = 3; 
+            BoldnessOptions = new ObservableCollection<string>
+            {
+                "☆",
+                "☆☆",
+                "☆☆☆",
+                "☆☆☆☆",
+                "☆☆☆☆☆"
+            };
+
+            // Defaultwaarden instellen
+            SelectedCategory = Categories[0];
+            SelectedQuestionList = QuestionLists[0];
+            SelectedRounds = RoundsOptions[0];
+        }
+
+        // Helper-methode voor PropertyChanged
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

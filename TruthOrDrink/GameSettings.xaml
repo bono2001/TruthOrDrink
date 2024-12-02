@@ -26,18 +26,25 @@
                        HorizontalOptions="Center"
                        TextColor="White" />
 
-                <!-- Gewaagdheid Slider -->
-                <StackLayout Orientation="Horizontal" Spacing="10">
-                    <Label Text="Gewaagdheid:"
-                           FontSize="18"
-                           TextColor="White"
-                           VerticalOptions="Center" />
-                    <Slider Minimum="1"
-                            Maximum="5"
-                            Value="{Binding SelectedBoldness}"
-                            WidthRequest="200"
-                            VerticalOptions="Center" />
-                </StackLayout>
+                <!-- Gewaagdheid Multi-Select -->
+                <Label Text="Gewaagdheid"
+                       FontSize="18"
+                       TextColor="White"
+                       HorizontalOptions="Start" />
+                <CollectionView ItemsSource="{Binding BoldnessOptions}"
+                                SelectionMode="Multiple"
+                                SelectedItems="{Binding SelectedBoldnessOptions}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="{Binding}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       VerticalOptions="Center" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <!-- Categorie Dropdown -->
                 <Picker ItemsSource="{Binding Categories}"
@@ -71,12 +78,16 @@
                         BackgroundColor="Red"
                         TextColor="White"
                         CornerRadius="10"
+                        BorderColor="Black"
+                        BorderWidth="2"
                         WidthRequest="150"
                         Clicked="OnBackClicked" />
                 <Button Text="Bevestigen"
                         FontSize="18"
                         BackgroundColor="Green"
                         TextColor="White"
+                        BorderColor="Black"
+                        BorderWidth="2"
                         CornerRadius="10"
                         WidthRequest="150"
                         Clicked="OnConfirmClicked" />

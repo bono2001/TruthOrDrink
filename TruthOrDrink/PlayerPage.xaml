@@ -12,58 +12,72 @@
     </ContentPage.Background>
 
     <ContentPage.Content>
-        <StackLayout Padding="20" Spacing="15">
-            <!-- Titel -->
-            <Label Text="Spelers in dit potje"
-                   FontSize="28"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   TextColor="White" />
+        <Grid RowDefinitions="*,Auto" Padding="20">
+            <!-- Inhoud -->
+            <StackLayout Grid.Row="0" Padding="20" Spacing="15">
+                <!-- Titel -->
+                <Label Text="Spelers in dit potje"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="White" />
 
-            <!-- Tabel met spelers -->
-            <CollectionView x:Name="PlayersCollectionView"
-                            ItemsSource="{Binding Players}"
-                            SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal" Padding="10" Spacing="10">
-                            <Label Text="{Binding Name}"
-                                   FontSize="18"
-                                   TextColor="White"
-                                   HorizontalOptions="StartAndExpand" />
-                            <Label Text="{Binding Gender}"
-                                   FontSize="18"
-                                   TextColor="White"
-                                   HorizontalOptions="End" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <!-- Tabel met spelers -->
+                <CollectionView x:Name="PlayersCollectionView"
+                                ItemsSource="{Binding Players}"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal" Padding="10" Spacing="10">
+                                <Label Text="{Binding Name}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       HorizontalOptions="StartAndExpand" />
+                                <Label Text="{Binding Gender}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       HorizontalOptions="End" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <!-- Speler toevoegen knop -->
-            <Button Text="Speler Toevoegen"
-                    FontSize="18"
-                    BackgroundColor="Blue"
-                    TextColor="White"
-                    CornerRadius="10"
-                    HorizontalOptions="FillAndExpand"
-                    Clicked="OnAddPlayerClicked" />
+                <!-- Speler toevoegen knop -->
+                <Button Text="Speler Toevoegen"
+                        FontSize="18"
+                        BackgroundColor="Blue"
+                        TextColor="White"
+                        CornerRadius="10"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="OnAddPlayerClicked" />
+            </StackLayout>
 
             <!-- Navigatie knoppen -->
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <!-- Terug-knop -->
                 <Button Text="Terug"
                         FontSize="18"
                         BackgroundColor="Red"
                         TextColor="White"
                         CornerRadius="10"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        WidthRequest="150"
                         Clicked="OnBackClicked" />
+
+                <!-- Bevestigen-knop -->
                 <Button Text="Bevestigen"
                         FontSize="18"
                         BackgroundColor="Green"
                         TextColor="White"
                         CornerRadius="10"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        WidthRequest="150"
                         Clicked="OnConfirmClicked" />
             </StackLayout>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
