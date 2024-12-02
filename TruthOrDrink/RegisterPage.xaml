@@ -6,15 +6,38 @@
     <!-- Achtergrond kleur met gradiënt -->
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <!-- Gradient kleuren -->
             <GradientStop Color="Blue" Offset="0.0" />
             <GradientStop Color="Red" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
 
     <ContentPage.Content>
-        <StackLayout Padding="20" Spacing="15" x:Name="DynamicLayout">
-            <!-- Dynamische inhoud per stap wordt hier toegevoegd -->
-        </StackLayout>
+        <Grid RowDefinitions="*,Auto" Padding="20">
+            <!-- Dynamische inhoud -->
+            <StackLayout Grid.Row="0" Padding="20" Spacing="15" x:Name="DynamicLayout">
+                <!-- Dynamische inhoud per stap wordt hier toegevoegd -->
+            </StackLayout>
+
+            <!-- Navigatie knoppen -->
+            <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <!-- Terug-knop -->
+                <Button Text="Terug"
+                        FontSize="18"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        CornerRadius="10"
+                        WidthRequest="150"
+                        Clicked="OnBackClicked" />
+
+                <!-- Bevestigen-knop -->
+                <Button Text="Bevestigen"
+                        FontSize="18"
+                        BackgroundColor="Green"
+                        TextColor="White"
+                        CornerRadius="10"
+                        WidthRequest="150"
+                        Clicked="OnConfirmClicked" />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

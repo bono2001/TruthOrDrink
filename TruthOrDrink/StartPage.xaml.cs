@@ -8,7 +8,6 @@ namespace TruthOrDrink
         {
             InitializeComponent();
 
-            AnimateLabel();
         }
 
         private async void OnSettingsClicked(object sender, EventArgs e)
@@ -23,17 +22,10 @@ namespace TruthOrDrink
 
         private async void OnPlayClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Spelen", "Game starten...", "OK");
+            await Navigation.PushAsync(new PlayerPage());
         }
 
-        private async void AnimateLabel()
-        {
-            while (true)
-            {
-                await WelkomLabel.ScaleTo(1.2, 500, Easing.CubicInOut);
-                await WelkomLabel.ScaleTo(1.0, 500, Easing.CubicInOut);
-            }
-        }
+
 
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.PlayerPage"
+             NavigationPage.HasNavigationBar="False">
+    <!-- Achtergrond kleur met gradiënt -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Titel -->
+            <Label Text="Spelers in dit potje"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="White" />
+
+            <!-- Tabel met spelers -->
+            <CollectionView x:Name="PlayersCollectionView"
+                            ItemsSource="{Binding Players}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Padding="10" Spacing="10">
+                            <Label Text="{Binding Name}"
+                                   FontSize="18"
+                                   TextColor="White"
+                                   HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding Gender}"
+                                   FontSize="18"
+                                   TextColor="White"
+                                   HorizontalOptions="End" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Speler toevoegen knop -->
+            <Button Text="Speler Toevoegen"
+                    FontSize="18"
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="OnAddPlayerClicked" />
+
+            <!-- Navigatie knoppen -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <Button Text="Terug"
+                        FontSize="18"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Clicked="OnBackClicked" />
+                <Button Text="Bevestigen"
+                        FontSize="18"
+                        BackgroundColor="Green"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Clicked="OnConfirmClicked" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
