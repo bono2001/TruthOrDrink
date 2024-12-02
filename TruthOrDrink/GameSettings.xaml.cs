@@ -18,15 +18,21 @@ namespace TruthOrDrink
         {
             var vm = BindingContext as ViewModels.GameSettingsViewModel;
 
+            if (vm == null) return;
+
+            // Converteer geselecteerde gewaagdheidsopties naar een string
+            string boldness = string.Join(", ", vm.SelectedBoldnessOptions);
+
             // Toon de geselecteerde instellingen
             await DisplayAlert("Instellingen Geselecteerd",
-                $"Gewaagdheid: {vm.SelectedBoldness}\n" +
+                $"Gewaagdheid: {boldness}\n" +
                 $"Categorie: {vm.SelectedCategory}\n" +
                 $"Vragenlijst: {vm.SelectedQuestionList}\n" +
                 $"Rondes: {vm.SelectedRounds}",
                 "OK");
 
-            // Navigeer naar volgende pagina of gebruik de instellingen
+            // Navigeer naar de volgende pagina of gebruik de instellingen
         }
+
     }
 }
