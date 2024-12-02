@@ -22,8 +22,9 @@ namespace TruthOrDrink
 
         private async void OnPlayClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Spelen", "Game starten...", "OK");
+            await Navigation.PushAsync(new PlayerPage());
         }
+
 
 
     }

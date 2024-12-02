@@ -9,7 +9,7 @@ namespace TruthOrDrink
             InitializeComponent();
 
             // Stel LoginPage in als de hoofdpagina van de app
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new StartPage());
         }
     }
 }

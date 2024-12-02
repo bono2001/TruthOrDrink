@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TruthOrDrink.ViewModels"
+             x:Class="TruthOrDrink.GameSettings"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:GameSettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto" Padding="20">
+            <!-- Inhoud -->
+            <StackLayout Grid.Row="0" Padding="20" Spacing="15">
+                <!-- Titel -->
+                <Label Text="Spel Instellingen"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="White" />
+
+                <!-- Gewaagdheid Slider -->
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Gewaagdheid:"
+                           FontSize="18"
+                           TextColor="White"
+                           VerticalOptions="Center" />
+                    <Slider Minimum="1"
+                            Maximum="5"
+                            Value="{Binding SelectedBoldness}"
+                            WidthRequest="200"
+                            VerticalOptions="Center" />
+                </StackLayout>
+
+                <!-- Categorie Dropdown -->
+                <Picker ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        Title="Categorieën"
+                        BackgroundColor="White"
+                        TextColor="Black"
+                        HorizontalOptions="FillAndExpand" />
+
+                <!-- Vragenlijst Dropdown -->
+                <Picker ItemsSource="{Binding QuestionLists}"
+                        SelectedItem="{Binding SelectedQuestionList}"
+                        Title="Vragenlijst"
+                        BackgroundColor="White"
+                        TextColor="Black"
+                        HorizontalOptions="FillAndExpand" />
+
+                <!-- Rondes Dropdown -->
+                <Picker ItemsSource="{Binding RoundsOptions}"
+                        SelectedItem="{Binding SelectedRounds}"
+                        Title="Aantal Rondes"
+                        BackgroundColor="White"
+                        TextColor="Black"
+                        HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <!-- Navigatie Knoppen -->
+            <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <Button Text="Terug"
+                        FontSize="18"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        CornerRadius="10"
+                        WidthRequest="150"
+                        Clicked="OnBackClicked" />
+                <Button Text="Bevestigen"
+                        FontSize="18"
+                        BackgroundColor="Green"
+                        TextColor="White"
+                        CornerRadius="10"
+                        WidthRequest="150"
+                        Clicked="OnConfirmClicked" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
