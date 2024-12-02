@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TruthOrDrink.ViewModels"
+             x:Class="TruthOrDrink.GamePage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:GamePageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+            <!-- Header -->
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                <!-- Verlaat Spel Icon -->
+                <ImageButton Source="exit_icon.png"
+                             WidthRequest="40"
+                             HeightRequest="40"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Center"
+                             Clicked="OnExitClicked" />
+
+                <!-- Ronde -->
+                <Label Text="{Binding RoundDisplay}"
+                       FontSize="16"
+                       TextColor="White"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center" />
+            </Grid>
+
+            <!-- Spel Informatie -->
+            <StackLayout Grid.Row="1" Spacing="20" Padding="10" VerticalOptions="Center">
+                <!-- Speler Beurt -->
+                <Label Text="{Binding CurrentPlayerName, StringFormat='{0} is aan de beurt'}"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+
+
+                <!-- Vraag -->
+                <Label Text="{Binding CurrentQuestion}"
+                       FontSize="18"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+
+                <!-- Tabel met spelers en punten -->
+                <CollectionView ItemsSource="{Binding Players}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,*" Padding="10">
+                                <Label Text="{Binding Name}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       HorizontalOptions="Start" />
+                                <Label Text="{Binding Points}"
+                                       FontSize="18"
+                                       TextColor="White"
+                                       HorizontalOptions="End" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+
+            <!-- Onderste Knoppen -->
+            <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="20">
+                <!-- Faal Knop -->
+                <Button Text="Gefaald? DRINK!"
+                FontSize="16"
+                BackgroundColor="Red"
+                TextColor="White"
+                CornerRadius="10"
+                BorderColor="Black"
+                BorderWidth="2"
+                Grid.Column="0"
+                Clicked="OnFailedClicked"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center" />
+
+                <Button Text="+5"
+                FontSize="16"
+                BackgroundColor="Green"
+                TextColor="White"
+                CornerRadius="10"
+                BorderColor="Black"
+                BorderWidth="2"
+                Grid.Column="1"
+                Clicked="OnSuccessClicked"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center" />
+
+            </Grid>
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
