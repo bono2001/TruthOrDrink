@@ -1,38 +1,40 @@
 using Microsoft.Maui.Controls;
+using TruthOrDrink.ViewModels;
 
 namespace TruthOrDrink
 {
-    public partial class GameSettings : ContentPage
+    public partial class GamePageSettings : ContentPage
     {
-        public GameSettings()
+        public GamePageSettings()
         {
             InitializeComponent();
         }
 
         private async void OnBackClicked(object sender, EventArgs e)
         {
-            await Navigation.PopAsync(); // Ga terug naar de vorige pagina
+            // Navigeer terug naar de vorige pagina
+            await Navigation.PopAsync();
         }
 
         private async void OnConfirmClicked(object sender, EventArgs e)
         {
-            var vm = BindingContext as ViewModels.GameSettingsViewModel;
+            // Haal de ViewModel op uit de BindingContext
+            if (BindingContext is GameSettingsViewModel vm)
+            {
+                // Converteer geselecteerde gewaagdheidsopties naar een string
+                string boldness = string.Join(", ", vm.SelectedBoldnessOptions);
 
-            if (vm == null) return;
+                // Toon een overzicht van de geselecteerde instellingen
+                await DisplayAlert("Instellingen Geselecteerd",
+                    $"Gewaagdheid: {boldness}\n" +
+                    $"Categorie: {vm.SelectedCategory}\n" +
+                    $"Vragenlijst: {vm.SelectedQuestionList}\n" +
+                    $"Rondes: {vm.SelectedRounds}",
+                    "OK");
 
-            // Converteer geselecteerde gewaagdheidsopties naar een string
-            string boldness = string.Join(", ", vm.SelectedBoldnessOptions);
-
-            // Toon de geselecteerde instellingen
-            await DisplayAlert("Instellingen Geselecteerd",
-                $"Gewaagdheid: {boldness}\n" +
-                $"Categorie: {vm.SelectedCategory}\n" +
-                $"Vragenlijst: {vm.SelectedQuestionList}\n" +
-                $"Rondes: {vm.SelectedRounds}",
-                "OK");
-
-            // Navigeer naar de volgende pagina of gebruik de instellingen
+                // Navigeer naar de volgende pagina (GamePage)
+                await Navigation.PushAsync(new GamePage());
+            }
         }
-
     }
 }

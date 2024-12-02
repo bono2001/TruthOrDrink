@@ -47,7 +47,7 @@ namespace TruthOrDrink
                 return;
             }
 
-            await Navigation.PushAsync(new GameSettings());
+            await Navigation.PushAsync(new GamePageSettings());
         }
     }
 }
