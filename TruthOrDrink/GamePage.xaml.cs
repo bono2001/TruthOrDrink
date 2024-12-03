@@ -35,5 +35,11 @@ namespace TruthOrDrink
                 await Navigation.PopToRootAsync();
             }
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            // Prevent going back to InstructiePage
+            return true;
+        }
     }
 }
