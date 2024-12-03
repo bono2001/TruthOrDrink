@@ -29,7 +29,7 @@
                         WidthRequest="150"
                         Clicked="OnBackClicked" />
 
-                <!-- Bevestigen-knop -->
+                 <!--Bevestigen-knop--> 
                 <Button Text="Bevestigen"
                         FontSize="18"
                         BackgroundColor="Green"
