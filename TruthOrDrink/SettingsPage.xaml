@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.SettingsPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        <!-- Header -->
+        <StackLayout Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,20">
+            <Label Text="Instellingen"
+                   FontSize="28"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+        </StackLayout>
+
+        <!-- Instellingen opties -->
+        <StackLayout Grid.Row="1" Padding="20" VerticalOptions="Start" HorizontalOptions="Center" Spacing="10">
+            <Label Text="Optie 1: Geluid aan/uit" 
+                   FontSize="18" 
+                   TextColor="White" />
+            <Label Text="Optie 2: Thema wijzigen" 
+                   FontSize="18" 
+                   TextColor="White" />
+            <Label Text="Optie 3: Over deze app" 
+                   FontSize="18" 
+                   TextColor="White" />
+        </StackLayout>
+
+        <!-- Exit knop -->
+        <ImageButton Source="exiticon.png"
+                     Grid.Row="2"
+                     HorizontalOptions="Start"
+                     VerticalOptions="End"
+                     WidthRequest="40"
+                     HeightRequest="40"
+                     Clicked="OnExitClicked" />
+    </Grid>
+</ContentPage>
