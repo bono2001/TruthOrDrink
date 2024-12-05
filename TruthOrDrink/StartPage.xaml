@@ -5,7 +5,6 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <!-- Gradient kleuren -->
             <GradientStop Color="Blue" Offset="0.0" />
             <GradientStop Color="Red" Offset="1.0" />
         </LinearGradientBrush>
@@ -15,12 +14,18 @@
         <!-- Header met iconen -->
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
             <!-- Instellingen -->
-            <ImageButton Source="cog.png"
-                         HorizontalOptions="Start"
-                         VerticalOptions="Center"
-                         WidthRequest="40"
-                         HeightRequest="40"
-                         Clicked="OnSettingsClicked" />
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
+                <ImageButton Source="cog.png"
+                             WidthRequest="40"
+                             HeightRequest="40"
+                             Clicked="OnSettingsClicked" />
+
+                <!-- Regels -->
+                <ImageButton Source="rules.png"
+                             WidthRequest="40"
+                             HeightRequest="40"
+                             Clicked="OnRulesClicked" />
+            </StackLayout>
 
             <!-- Eigen vragen toevoegen -->
             <Button Text="Eigen vragen toevoegen"
