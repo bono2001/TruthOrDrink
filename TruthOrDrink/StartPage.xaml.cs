@@ -1,4 +1,6 @@
 using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
+using TruthOrDrink.Models;
 
 namespace TruthOrDrink
 {
@@ -7,7 +9,6 @@ namespace TruthOrDrink
         public StartPage()
         {
             InitializeComponent();
-
         }
 
         private async void OnSettingsClicked(object sender, EventArgs e)
@@ -15,19 +16,19 @@ namespace TruthOrDrink
             await DisplayAlert("Instellingen", "Instellingen openen...", "OK");
         }
 
+        private async void OnAddQuestionsClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new QuestionPage());
+        }
 
         private async void OnPlayClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new PlayerPage());
         }
 
-        private async void OnAddQuestionsClicked(object sender, EventArgs e)
+        private async void OnRulesClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new QuestionPage());
+            await Navigation.PushAsync(new RulePage());
         }
-
-
-
-
     }
 }
