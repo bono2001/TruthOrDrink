@@ -9,6 +9,6 @@ namespace TruthOrDrink.Models
     public class Player
     {
         public required string Name { get; set; }
-        public required string Gender { get; set; }
+        public required string Gender { get; set; } 
     }
 }
