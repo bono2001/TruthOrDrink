@@ -8,6 +8,15 @@ namespace TruthOrDrink
         public GamePage()
         {
             InitializeComponent();
+            if (BindingContext is GamePageViewModel vm)
+            {
+                vm.OnGameOver += NavigateToScorePage;
+            }
+        }
+
+        private async void NavigateToScorePage()
+        {
+            await Navigation.PushAsync(new ScorePage());
         }
 
         private void OnFailedClicked(object sender, EventArgs e)
@@ -26,19 +35,17 @@ namespace TruthOrDrink
             }
         }
 
-
         private async void OnExitClicked(object sender, EventArgs e)
         {
             bool confirm = await DisplayAlert("Verlaat Spel", "Weet je zeker dat je het spel wilt verlaten?", "Ja", "Nee");
             if (confirm)
             {
-                await Navigation.PopToRootAsync();
+                await Navigation.PushAsync(new StartPage());
             }
         }
 
         protected override bool OnBackButtonPressed()
         {
-            // Prevent going back to InstructiePage
             return true;
         }
     }
