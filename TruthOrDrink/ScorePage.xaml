@@ -4,13 +4,24 @@
              xmlns:vm="clr-namespace:TruthOrDrink.ViewModels"
              x:Class="TruthOrDrink.ScorePage"
              NavigationPage.HasNavigationBar="False">
+    <!-- Achtergrond met gradient -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
     <ContentPage.Content>
         <StackLayout Padding="20" Spacing="15" VerticalOptions="Center">
+            <!-- Titel -->
             <Label Text="Eindscore"
                    FontSize="28"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    TextColor="White" />
+
+            <!-- Lijst met spelers -->
             <CollectionView ItemsSource="{Binding Players}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -27,12 +38,28 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <!-- Share Button -->
+            <ImageButton Source="sharebtn.png"
+                         HeightRequest="50"
+                         WidthRequest="50"
+                         HorizontalOptions="Center"
+                         VerticalOptions="End"
+                         Clicked="OnShareClicked" />
+
+            <!-- Knop om terug te gaan naar startpagina -->
             <Button Text="Terug naar Startpagina"
                     FontSize="18"
-                    BackgroundColor="Blue"
                     TextColor="White"
                     CornerRadius="10"
-                    Clicked="OnBackToStartClicked" />
+                    Clicked="OnBackToStartClicked">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="Red" Offset="0.0" />
+                        <GradientStop Color="Blue" Offset="1.5" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

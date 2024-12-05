@@ -1,4 +1,6 @@
 using Microsoft.Maui.Controls;
+using System;
+using System.Threading.Tasks;
 using TruthOrDrink.ViewModels;
 
 namespace TruthOrDrink
@@ -8,12 +10,17 @@ namespace TruthOrDrink
         public ScorePage()
         {
             InitializeComponent();
-            BindingContext = new GamePageViewModel(); 
+            BindingContext = new GamePageViewModel();
         }
 
         private async void OnBackToStartClicked(object sender, EventArgs e)
         {
-            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new StartPage());
+        }
+
+        private async void OnShareClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SharePage());
         }
     }
 }

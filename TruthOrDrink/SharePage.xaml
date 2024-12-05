@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.SharePage"
+             NavigationPage.HasNavigationBar="False">
+    <!-- Achtergrond met gradient -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="Red" Offset="0.0" />
+            <GradientStop Color="Blue" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <!-- Social Media opties -->
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+                <Button Text="Deel op Instagram"
+                        FontSize="18"
+                        TextColor="White"
+                        BackgroundColor="Transparent"
+                        BorderColor="White"
+                        BorderWidth="2"
+                        CornerRadius="10" />
+                <Button Text="Deel op Facebook"
+                        FontSize="18"
+                        TextColor="White"
+                        BackgroundColor="Transparent"
+                        BorderColor="White"
+                        BorderWidth="2"
+                        CornerRadius="10" />
+                <Button Text="Deel op Snapchat"
+                        FontSize="18"
+                        TextColor="White"
+                        BackgroundColor="Transparent"
+                        BorderColor="White"
+                        BorderWidth="2"
+                        CornerRadius="10" />
+            </StackLayout>
+
+            <!-- Exit icon -->
+            <ImageButton Source="exiticon.png"
+                         WidthRequest="40"
+                         HeightRequest="40"
+                         HorizontalOptions="Start"
+                         VerticalOptions="End"
+                         Clicked="OnExitClicked" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
