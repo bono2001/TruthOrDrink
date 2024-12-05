@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TruthOrDrink.Models
 {
-    public class Player
+    public class Question
     {
-        public required string Name { get; set; }
-        public required string Gender { get; set; } 
+        public string Text { get; set; }
+        public string Category { get; set; }
     }
 }
+
