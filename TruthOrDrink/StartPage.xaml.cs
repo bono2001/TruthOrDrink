@@ -13,7 +13,8 @@ namespace TruthOrDrink
 
         private async void OnSettingsClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Instellingen", "Instellingen openen...", "OK");
+            // Navigeer naar de SettingsPage
+            await Navigation.PushAsync(new SettingsPage());
         }
 
         private async void OnAddQuestionsClicked(object sender, EventArgs e)
