@@ -18,13 +18,14 @@
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*,Auto" Padding="20">
             <!-- Header -->
-            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" HeightRequest="60">
                 <!-- Verlaat Spel Icon -->
-                <ImageButton Source="exit_icon.png"
+                <ImageButton Source="exiticon.png"
                              WidthRequest="40"
                              HeightRequest="40"
                              HorizontalOptions="Start"
                              VerticalOptions="Center"
+                             Margin="10,0,0,0"
                              Clicked="OnExitClicked" />
 
                 <!-- Ronde -->
@@ -32,7 +33,8 @@
                        FontSize="16"
                        TextColor="White"
                        HorizontalOptions="End"
-                       VerticalOptions="Center" />
+                       VerticalOptions="Center"
+                       Margin="0,0,10,0" />
             </Grid>
 
             <!-- Spel Informatie -->
@@ -43,7 +45,6 @@
                        FontAttributes="Bold"
                        TextColor="White"
                        HorizontalOptions="Center" />
-
 
                 <!-- Vraag -->
                 <Label Text="{Binding CurrentQuestion}"
@@ -75,32 +76,30 @@
             <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="20">
                 <!-- Faal Knop -->
                 <Button Text="Gefaald? DRINK!"
-                FontSize="16"
-                BackgroundColor="Red"
-                TextColor="White"
-                CornerRadius="10"
-                BorderColor="Black"
-                BorderWidth="2"
-                Grid.Column="0"
-                Clicked="OnFailedClicked"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="Center" />
+                        FontSize="16"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        CornerRadius="10"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        Grid.Column="0"
+                        Clicked="OnFailedClicked"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center" />
 
+                <!-- Geslaagd Knop -->
                 <Button Text="+5"
-                FontSize="16"
-                BackgroundColor="Green"
-                TextColor="White"
-                CornerRadius="10"
-                BorderColor="Black"
-                BorderWidth="2"
-                Grid.Column="1"
-                Clicked="OnSuccessClicked"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="Center" />
-
+                        FontSize="16"
+                        BackgroundColor="Green"
+                        TextColor="White"
+                        CornerRadius="10"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        Grid.Column="1"
+                        Clicked="OnSuccessClicked"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center" />
             </Grid>
-
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

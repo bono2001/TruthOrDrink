@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace TruthOrDrink.ViewModels
 {
     public class GamePageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event Action OnGameOver; // Event for game over navigation
 
-        // Eigenschappen
         public ObservableCollection<Player> Players { get; set; }
         public string CurrentPlayerName => Players[CurrentPlayerIndex].Name;
         public string CurrentQuestion => Questions[CurrentQuestionIndex];
@@ -19,10 +20,8 @@ namespace TruthOrDrink.ViewModels
         private int TotalRounds { get; set; }
         private List<string> Questions { get; set; }
 
-        // Constructor
         public GamePageViewModel()
         {
-            // Dummy spelers en vragen
             Players = new ObservableCollection<Player>
             {
                 new Player { Name = "Speler 1", Points = 0 },
@@ -42,69 +41,47 @@ namespace TruthOrDrink.ViewModels
             CurrentQuestionIndex = 0;
         }
 
-        // Methode: Vraag niet gehaald
         public void FailQuestion()
         {
-            // Alleen naar de volgende beurt gaan
             NextTurn();
         }
 
-        // Methode: Vraag gehaald
         public void PassQuestion()
         {
-            // Speler krijgt punten
             Players[CurrentPlayerIndex].Points += 5;
-            OnPropertyChanged(nameof(Players)); // Update de UI voor de puntenlijst
+            OnPropertyChanged(nameof(Players));
             NextTurn();
         }
 
-        // Methode: Naar de volgende beurt
         private void NextTurn()
         {
-            // Volgende speler
             CurrentPlayerIndex = (CurrentPlayerIndex + 1) % Players.Count;
 
-            // Controleer of de ronde voorbij is
             if (CurrentPlayerIndex == 0)
             {
                 CurrentRound++;
                 if (CurrentRound > TotalRounds)
                 {
-                    // Spel beëindigen
-                    GameOver();
+                    OnGameOver?.Invoke(); // Trigger Game Over Event
                     return;
                 }
             }
 
-            // Volgende vraag
             CurrentQuestionIndex = (CurrentQuestionIndex + 1) % Questions.Count;
-
-            // Update gebonden eigenschappen
             OnPropertyChanged(nameof(CurrentPlayerName));
             OnPropertyChanged(nameof(CurrentQuestion));
             OnPropertyChanged(nameof(RoundDisplay));
         }
 
-        // Methode: Spel beëindigen
-        private async void GameOver()
-        {
-            string winner = Players.OrderByDescending(p => p.Points).First().Name;
-            await App.Current.MainPage.DisplayAlert("Spel Beëindigd", $"Gefeliciteerd {winner}, je hebt gewonnen!", "OK");
-            await App.Current.MainPage.Navigation.PopToRootAsync();
-        }
-
-        // Helper voor PropertyChanged
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
-    // Player klasse
     public class Player : INotifyPropertyChanged
     {
         public string Name { get; set; }
-
         private int _points;
         public int Points
         {
