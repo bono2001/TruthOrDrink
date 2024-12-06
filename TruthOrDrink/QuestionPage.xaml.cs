@@ -12,17 +12,17 @@ namespace TruthOrDrink
         {
             InitializeComponent();
 
-            // Voeg nepvragen toe aan de Questions-verzameling
+            // Voeg default toe aan de Questions-verzameling
             Questions = new ObservableCollection<Question>
             {
-                new Question { Text = "Wat is je grootste geheim?", Category = "Cat 1" },
-                new Question { Text = "Wat is het meest gênante dat je ooit hebt gedaan?", Category = "Cat 2" },
-                new Question { Text = "Wie vind je stiekem het aantrekkelijkst?", Category = "Cat 3" },
-                new Question { Text = "Wat is de grootste leugen die je ooit hebt verteld?", Category = "Cat 1" },
-                new Question { Text = "Wat is je vreemdste gewoonte?", Category = "Cat 2" }
+                new Question { DefaultQuestion = "Wat is je grootste geheim?", Category = "Cat 1" },
+                new Question { DefaultQuestion = "Wat is het meest gênante dat je ooit hebt gedaan?", Category = "Cat 2" },
+                new Question { DefaultQuestion = "Wie vind je stiekem het aantrekkelijkst?", Category = "Cat 3" },
+                new Question { DefaultQuestion = "Wat is de grootste leugen die je ooit hebt verteld?", Category = "Cat 1" },
+                new Question { DefaultQuestion = "Wat is je vreemdste gewoonte?", Category = "Cat 2" }
             };
 
-            // Stel de BindingContext in
+            
             BindingContext = this;
         }
 

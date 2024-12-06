@@ -8,8 +8,11 @@ namespace TruthOrDrink.Models
 {
     public class Question
     {
-        public string Text { get; set; }
+        public int Id { get; set; }
+        public string Difficulty { get; set; }
         public string Category { get; set; }
+        public string DefaultQuestion { get; set; }
+        public string PlayerQuestion { get; set; }
     }
 }
 
