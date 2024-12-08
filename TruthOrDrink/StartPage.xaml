@@ -19,42 +19,36 @@
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
                     <!-- Instellingen -->
                     <ImageButton Source="cog.png"
-                 WidthRequest="40"
-                 HeightRequest="40"
-                 Clicked="OnSettingsClicked" />
+                                 WidthRequest="40"
+                                 HeightRequest="40"
+                                 Clicked="OnSettingsClicked" />
 
                     <!-- Regels -->
                     <ImageButton Source="rules.png"
-                 WidthRequest="40"
-                 HeightRequest="40"
-                 Clicked="OnRulesClicked" />
+                                 WidthRequest="40"
+                                 HeightRequest="40"
+                                 Clicked="OnRulesClicked" />
 
                     <!-- Vrienden -->
                     <ImageButton Source="friends.png"
-                 WidthRequest="40"
-                 HeightRequest="40"
-                 Clicked="OnFriendsClicked" />
+                                 WidthRequest="40"
+                                 HeightRequest="40"
+                                 Clicked="OnFriendsClicked" />
                 </StackLayout>
 
-
                 <!-- Eigen vragen toevoegen -->
-                <Button Text="Eigen vragen toevoegen"
-                        HorizontalOptions="End"
-                        VerticalOptions="Center"
-                        Padding="10,5"
-                        FontSize="14"
-                        BorderColor="Black"
-                        BorderWidth="2"
-                        CornerRadius="10"
-                        TextColor="White"
-                        Clicked="OnAddQuestionsClicked">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="Red" Offset="0.0" />
-                            <GradientStop Color="Blue" Offset="1.5" />
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
+                <StackLayout HorizontalOptions="End" VerticalOptions="Center" Margin="0,-10,-10,0">
+                    <Image Source="eigenvragen.png"
+                           Aspect="AspectFit"
+                           WidthRequest="200"
+                           HeightRequest="80"
+                           HorizontalOptions="End"
+                           VerticalOptions="Start">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAddQuestionsClicked" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
             </Grid>
 
             <!-- Midden -->
@@ -78,21 +72,16 @@
 
             <!-- Onderste knop -->
             <StackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center">
-                <Button Text="Spelen"
-                        FontSize="18"
-                        BorderColor="Black"
-                        BorderWidth="2"
-                        CornerRadius="10"
-                        Padding="20,10"
-                        TextColor="White"
-                        Clicked="OnPlayClicked">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="Red" Offset="0.0" />
-                            <GradientStop Color="Blue" Offset="1.5" />
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
+                <Image Source="startbtn.png"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       WidthRequest="200"
+                       HeightRequest="80">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPlayClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
             </StackLayout>
         </Grid>
     </Grid>
