@@ -31,5 +31,11 @@ namespace TruthOrDrink
         {
             await Navigation.PushAsync(new RulePage());
         }
+
+        private async void OnFriendsClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FriendPage());
+        }
+
     }
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.FriendPage"
+             NavigationPage.HasNavigationBar="False">
+    <!-- Achtergrond -->
+    <Grid>
+        <!-- Achtergrond kleur -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="Blue" Offset="0.0" />
+                <GradientStop Color="Red" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Inhoud -->
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Titel -->
+            <Label Grid.Row="0" Text="Vriendenlijst" 
+                   FontSize="24" 
+                   TextColor="White" 
+                   HorizontalOptions="Center" />
+
+            <!-- Hardcoded vriendenlijst -->
+            <StackLayout Grid.Row="1" Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                <!-- Eerste vriend -->
+                <Grid ColumnDefinitions="*,Auto" Padding="5" Margin="0,0,0,5">
+                    <Label Grid.Column="0" Text="John Doe" FontSize="18" TextColor="White"
+               VerticalOptions="Center" HorizontalOptions="Start" />
+                    <ImageButton Grid.Column="1" Source="minusbutton.png" WidthRequest="30" HeightRequest="30"
+                     HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0" />
+                </Grid>
+
+                <!-- Tweede vriend -->
+                <Grid ColumnDefinitions="*,Auto" Padding="5" Margin="0,0,0,5">
+                    <Label Grid.Column="0" Text="Jane Smith" FontSize="18" TextColor="White"
+               VerticalOptions="Center" HorizontalOptions="Start" />
+                    <ImageButton Grid.Column="1" Source="minusbutton.png" WidthRequest="30" HeightRequest="30"
+                     HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0" />
+                </Grid>
+
+                <!-- Derde vriend -->
+                <Grid ColumnDefinitions="*,Auto" Padding="5" Margin="0,0,0,5">
+                    <Label Grid.Column="0" Text="Alice Johnson" FontSize="18" TextColor="White"
+               VerticalOptions="Center" HorizontalOptions="Start" />
+                    <ImageButton Grid.Column="1" Source="minusbutton.png" WidthRequest="30" HeightRequest="30"
+                     HorizontalOptions="End" VerticalOptions="Center" Margin="10,0,0,0" />
+                </Grid>
+            </StackLayout>
+
+
+
+            <!-- Vriend toevoegen knop -->
+            <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="10">
+                <Label Text="Vriend toevoegen"
+                       FontSize="18"
+                       TextColor="White"
+                       VerticalOptions="Center" />
+                <ImageButton Source="addfriend.png"
+                             WidthRequest="50" 
+                             HeightRequest="50"
+                             Clicked="OnAddFriendClicked" />
+            </StackLayout>
+
+            <!-- Exit button -->
+            <ImageButton Grid.Row="2"
+                         Source="exiticon.png"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         HorizontalOptions="Start"
+                         VerticalOptions="End"
+                         Margin="10"
+                         Clicked="OnExitClicked" />
+        </Grid>
+    </Grid>
+</ContentPage>

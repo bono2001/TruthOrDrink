@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TruthOrDrink.AddFriendPage"
+             NavigationPage.HasNavigationBar="False">
+    <!-- Achtergrond -->
+    <Grid>
+        <!-- Achtergrond kleur -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="Blue" Offset="0.0" />
+                <GradientStop Color="Red" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Inhoud -->
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Titel: Jouw vriendcode -->
+            <Label Grid.Row="0" Text="Jouw vriendcode = D34VD3" 
+                   FontSize="20" 
+                   TextColor="White" 
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+
+            <!-- Middeninhoud -->
+            <StackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+                <!-- Voer vriendcode in -->
+                <Label Text="Voer vriend-code in:" 
+                       FontSize="18" 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+
+                <!-- Invoerveld -->
+                <Entry Placeholder="-" 
+                       FontSize="18" 
+                       BackgroundColor="White" 
+                       TextColor="Black" 
+                       WidthRequest="200" 
+                       HorizontalOptions="Center" />
+
+                <!-- QR-code scan optie -->
+                <Label Text="Of scan de QR:" 
+                       FontSize="18" 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+
+                <!-- QR-code afbeelding -->
+                <Image Source="qrcode.png" 
+                       WidthRequest="150" 
+                       HeightRequest="150"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+
+            <!-- Exit-knop (linksonder) -->
+            <ImageButton Grid.Row="2"
+                         Source="exiticon.png"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         HorizontalOptions="Start"
+                         VerticalOptions="End"
+                         Margin="10"
+                         Clicked="OnExitClicked" />
+        </Grid>
+    </Grid>
+</ContentPage>

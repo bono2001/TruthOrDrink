@@ -3,84 +3,97 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TruthOrDrink.StartPage"
              NavigationPage.HasNavigationBar="False">
-    <ContentPage.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="Blue" Offset="0.0" />
-            <GradientStop Color="Red" Offset="1.0" />
-        </LinearGradientBrush>
-    </ContentPage.Background>
+    <!-- Achtergrond met afbeelding -->
+    <Grid>
+        <!-- Achtergrond afbeelding -->
+        <Image Source="bgbr.png"
+               Aspect="AspectFill"
+               IsVisible="True"
+               Opacity="0.9" />
 
-    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
-        <!-- Header met iconen -->
-        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
-            <!-- Instellingen -->
-            <StackLayout VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
-                <ImageButton Source="cog.png"
-                             WidthRequest="40"
-                             HeightRequest="40"
-                             Clicked="OnSettingsClicked" />
+        <!-- Inhoud -->
+        <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+            <!-- Header met iconen -->
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+                <!-- Instellingen -->
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Start" Spacing="10">
+                    <!-- Instellingen -->
+                    <ImageButton Source="cog.png"
+                 WidthRequest="40"
+                 HeightRequest="40"
+                 Clicked="OnSettingsClicked" />
 
-                <!-- Regels -->
-                <ImageButton Source="rules.png"
-                             WidthRequest="40"
-                             HeightRequest="40"
-                             Clicked="OnRulesClicked" />
+                    <!-- Regels -->
+                    <ImageButton Source="rules.png"
+                 WidthRequest="40"
+                 HeightRequest="40"
+                 Clicked="OnRulesClicked" />
+
+                    <!-- Vrienden -->
+                    <ImageButton Source="friends.png"
+                 WidthRequest="40"
+                 HeightRequest="40"
+                 Clicked="OnFriendsClicked" />
+                </StackLayout>
+
+
+                <!-- Eigen vragen toevoegen -->
+                <Button Text="Eigen vragen toevoegen"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Padding="10,5"
+                        FontSize="14"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        CornerRadius="10"
+                        TextColor="White"
+                        Clicked="OnAddQuestionsClicked">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="Red" Offset="0.0" />
+                            <GradientStop Color="Blue" Offset="1.5" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </Grid>
+
+            <!-- Midden -->
+            <StackLayout Grid.Row="1" VerticalOptions="StartAndExpand" HorizontalOptions="Center">
+                <!-- Welkom afbeelding -->
+                <Image Source="welkom.png"
+                       Aspect="AspectFit"
+                       HeightRequest="150"
+                       WidthRequest="300"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,0" />
+
+                <!-- Logo -->
+                <Image Source="todlogo.png"
+                       Aspect="AspectFit"
+                       HeightRequest="150"
+                       WidthRequest="150"
+                       HorizontalOptions="Center"
+                       Margin="0,10,0,0" />
             </StackLayout>
 
-            <!-- Eigen vragen toevoegen -->
-            <Button Text="Eigen vragen toevoegen"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center"
-                    Padding="10,5"
-                    FontSize="14"
-                    BorderColor="Black"
-                    BorderWidth="2"
-                    CornerRadius="10"
-                    TextColor="White"
-                    Clicked="OnAddQuestionsClicked">
-                <Button.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="Red" Offset="0.0" />
-                        <GradientStop Color="Blue" Offset="1.5" />
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
+            <!-- Onderste knop -->
+            <StackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center">
+                <Button Text="Spelen"
+                        FontSize="18"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        CornerRadius="10"
+                        Padding="20,10"
+                        TextColor="White"
+                        Clicked="OnPlayClicked">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="Red" Offset="0.0" />
+                            <GradientStop Color="Blue" Offset="1.5" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </StackLayout>
         </Grid>
-
-        <!-- Midden -->
-        <StackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" Spacing="-55">
-            <!-- Welkom afbeelding -->
-            <Image Source="welkom.png"
-                   Aspect="AspectFit"
-                   HeightRequest="150"
-                   WidthRequest="300"
-                   HorizontalOptions="Center" />
-
-            <!-- Logo -->
-            <Image Source="todlogo.png"
-                   Aspect="AspectFit"
-                   HeightRequest="150"
-                   WidthRequest="150"
-                   HorizontalOptions="Center" />
-        </StackLayout>
-
-        <!-- Onderste knop -->
-        <StackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center">
-            <Button Text="Spelen"
-                    FontSize="18"
-                    BorderColor="Black"
-                    BorderWidth="2"
-                    CornerRadius="10"
-                    Padding="20,10"
-                    TextColor="White"
-                    Clicked="OnPlayClicked">
-                <Button.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="Red" Offset="0.0" />
-                        <GradientStop Color="Blue" Offset="1.5" />
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-        </StackLayout>
     </Grid>
 </ContentPage>
