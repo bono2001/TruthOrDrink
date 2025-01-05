@@ -1,6 +1,7 @@
 using Microsoft.Maui.Controls;
-using System.Collections.ObjectModel;
-using TruthOrDrink.Models;
+using TruthOrDrink;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace TruthOrDrink
 {
@@ -13,12 +14,12 @@ namespace TruthOrDrink
 
         private async void OnSettingsClicked(object sender, EventArgs e)
         {
-            // Navigeer naar de SettingsPage
             await Navigation.PushAsync(new SettingsPage());
         }
 
         private async void OnAddQuestionsClicked(object sender, EventArgs e)
         {
+            
             await Navigation.PushAsync(new QuestionPage());
         }
 
@@ -36,6 +37,5 @@ namespace TruthOrDrink
         {
             await Navigation.PushAsync(new FriendPage());
         }
-
     }
 }

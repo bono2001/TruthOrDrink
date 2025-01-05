@@ -15,8 +15,15 @@ namespace TruthOrDrink
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // Registreer de LocalDbService met een databasepad
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "TruthOrDrink.db");
+            builder.Services.AddSingleton<LocalDbService>(provider => new LocalDbService(dbPath));
+
+            // Registreer QuestionPage
+            builder.Services.AddTransient<QuestionPage>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
