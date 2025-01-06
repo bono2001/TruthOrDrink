@@ -25,25 +25,55 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="10" Margin="0,5" CornerRadius="10" BackgroundColor="White">
-                        <StackLayout>
-                            <Label Text="{Binding PlayerQuestion}" FontSize="18" TextColor="Black" />
-                            <Label Text="{Binding Category}" FontSize="14" TextColor="Gray" />
-                        </StackLayout>
+                        <Grid ColumnDefinitions="*,Auto,Auto" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                            <!-- Vraag en categorie -->
+                            <StackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start">
+                                <Label Text="{Binding PlayerQuestion}" FontSize="18" TextColor="Black" />
+                                <Label Text="{Binding Category}" FontSize="14" TextColor="Gray" />
+                            </StackLayout>
+
+                            <!-- Wijzig-knop -->
+                            <Button Text="✏️"
+                            Grid.Column="1"
+                            FontSize="12"
+                            WidthRequest="60"
+                            HeightRequest="30"
+                            BackgroundColor="Blue"
+                            TextColor="White"
+                            CornerRadius="15"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UpdateQuestionCommand}"
+                            CommandParameter="{Binding .}" />
+
+                            <!-- Verwijder-knop -->
+                            <Button Text="🗑️"
+                            Grid.Column="2"
+                            FontSize="12"
+                            WidthRequest="80"
+                            HeightRequest="30"
+                            BackgroundColor="Red"
+                            TextColor="White"
+                            CornerRadius="15"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteQuestionCommand}"
+                            CommandParameter="{Binding .}" />
+                        </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+
         <!-- Formulier en knop -->
         <StackLayout Grid.Row="2" Orientation="Vertical" Padding="10" Spacing="10">
-            <!-- Vraagtekst -->
             <Entry x:Name="QuestionEntry"
                    Placeholder="Typ je vraag hier..."
                    FontSize="18"
                    BackgroundColor="White"
                    TextColor="Black" />
 
-            <!-- Moeilijkheidsgraad Picker -->
             <Picker x:Name="DifficultyPicker"
                     Title="Kies Moeilijkheidsgraad"
                     FontSize="16"
@@ -58,7 +88,6 @@
                 </Picker.ItemsSource>
             </Picker>
 
-            <!-- Categorie Picker -->
             <Picker x:Name="CategoryPicker"
                     Title="Kies Categorie"
                     FontSize="16"
@@ -74,7 +103,6 @@
                 </Picker.ItemsSource>
             </Picker>
 
-            <!-- Bevestigingsknop -->
             <Button Text="Voeg vraag toe"
                     FontSize="16"
                     WidthRequest="150"
@@ -85,10 +113,9 @@
                     CornerRadius="10"
                     TextColor="White"
                     BackgroundColor="Green"
-                    Clicked="OnAddQuestionConfirmed" />
+                    Clicked="CreateQuestion" />
         </StackLayout>
 
-        <!-- Terugknop -->
         <StackLayout Grid.Row="3" Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="10">
             <Button Text="←"
                     FontSize="18"

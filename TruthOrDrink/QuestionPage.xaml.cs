@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TruthOrDrink.Models;
 
 namespace TruthOrDrink
@@ -12,23 +13,26 @@ namespace TruthOrDrink
 
         public ObservableCollection<Question> Questions { get; } = new();
 
-        // Constructor zonder parameter. Haalt LocalDbService intern op via DI.
+        public ICommand DeleteQuestionCommand { get; }
+        public ICommand UpdateQuestionCommand { get; }
+
         public QuestionPage()
         {
             InitializeComponent();
 
-            // Haal de LocalDbService op via Dependency Injection
             _dbService = App.Services.GetService<QuestionRepository>();
 
             if (_dbService == null)
             {
-                Console.WriteLine("Fout: LocalDbService kon niet worden opgehaald.");
+                Console.WriteLine("Fout: QuestionRepository kon niet worden opgehaald.");
                 return;
             }
 
+            DeleteQuestionCommand = new Command<Question>(DeleteQuestion);
+            UpdateQuestionCommand = new Command<Question>(UpdateQuestion);
+
             BindingContext = this;
 
-            // Laad de vragen
             LoadQuestions();
         }
 
@@ -36,10 +40,7 @@ namespace TruthOrDrink
         {
             try
             {
-                // Haal vragen op uit de database
                 var storedQuestions = await _dbService.GetQuestionsAsync();
-
-                // Filter alleen de vragen van de speler (PlayerQuestion)
                 var playerQuestions = storedQuestions.Where(q => !string.IsNullOrEmpty(q.PlayerQuestion)).ToList();
 
                 Questions.Clear();
@@ -54,38 +55,30 @@ namespace TruthOrDrink
             }
         }
 
-        private async void OnAddQuestionConfirmed(object sender, EventArgs e)
+        private async void CreateQuestion(object sender, EventArgs e)
         {
-            // Haal waarden uit het formulier
             string questionText = QuestionEntry.Text;
             string difficulty = DifficultyPicker.SelectedItem as string;
             string category = CategoryPicker.SelectedItem as string;
 
-            // Validatie
             if (string.IsNullOrEmpty(questionText) || string.IsNullOrEmpty(difficulty) || string.IsNullOrEmpty(category))
             {
                 await DisplayAlert("Fout", "Alle velden moeten worden ingevuld.", "OK");
                 return;
             }
 
-            // Maak een nieuwe vraag
             var newQuestion = new Question
             {
                 Difficulty = difficulty,
                 Category = category,
-                DefaultQuestion = null, // Dit is een speler-vraag
                 PlayerQuestion = questionText
             };
 
             try
             {
-                // Voeg de vraag toe aan de database
                 await _dbService.AddQuestionAsync(newQuestion);
-
-                // Voeg de vraag toe aan de lijst die op de pagina wordt weergegeven
                 Questions.Add(newQuestion);
 
-                // Leeg de velden na toevoegen
                 QuestionEntry.Text = string.Empty;
                 DifficultyPicker.SelectedItem = null;
                 CategoryPicker.SelectedItem = null;
@@ -99,9 +92,62 @@ namespace TruthOrDrink
             }
         }
 
+        private async void DeleteQuestion(Question question)
+        {
+            if (question == null) return;
+
+            bool isConfirmed = await DisplayAlert(
+                "Bevestigen",
+                $"Weet je zeker dat je deze vraag wilt verwijderen?\n\nVraag: {question.PlayerQuestion}",
+                "Ja",
+                "Nee"
+            );
+
+            if (!isConfirmed) return;
+
+            try
+            {
+                await _dbService.DeleteQuestionAsync(question);
+                Questions.Remove(question);
+
+                await DisplayAlert("Succes", "De vraag is verwijderd!", "OK");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fout bij het verwijderen van een vraag uit de database: {ex.Message}");
+                await DisplayAlert("Fout", "Er is iets misgegaan bij het verwijderen van de vraag.", "OK");
+            }
+        }
+
+        private async void UpdateQuestion(Question question)
+        {
+            if (question == null) return;
+
+            string newQuestionText = await DisplayPromptAsync(
+                "Wijzig Vraag",
+                "Pas de vraag aan:",
+                initialValue: question.PlayerQuestion
+            );
+
+            if (string.IsNullOrEmpty(newQuestionText)) return;
+
+            try
+            {
+                question.PlayerQuestion = newQuestionText;
+                await _dbService.UpdateQuestionAsync(question);
+
+                LoadQuestions(); // Herlaad de lijst
+                await DisplayAlert("Succes", "De vraag is gewijzigd!", "OK");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fout bij het wijzigen van een vraag: {ex.Message}");
+                await DisplayAlert("Fout", "Er is iets misgegaan bij het wijzigen van de vraag.", "OK");
+            }
+        }
+
         private async void OnBackClicked(object sender, EventArgs e)
         {
-            // Ga terug naar de vorige pagina
             await Navigation.PopAsync();
         }
     }
