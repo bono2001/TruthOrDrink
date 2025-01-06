@@ -8,7 +8,7 @@ namespace TruthOrDrink
 {
     public partial class QuestionPage : ContentPage
     {
-        private readonly LocalDbService _dbService;
+        private readonly QuestionRepository _dbService;
 
         public ObservableCollection<Question> Questions { get; } = new();
 
@@ -18,7 +18,7 @@ namespace TruthOrDrink
             InitializeComponent();
 
             // Haal de LocalDbService op via Dependency Injection
-            _dbService = App.Services.GetService<LocalDbService>();
+            _dbService = App.Services.GetService<QuestionRepository>();
 
             if (_dbService == null)
             {

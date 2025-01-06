@@ -17,7 +17,7 @@ namespace TruthOrDrink
 
             // Registreer de LocalDbService met een databasepad
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "TruthOrDrink.db");
-            builder.Services.AddSingleton<LocalDbService>(provider => new LocalDbService(dbPath));
+            builder.Services.AddSingleton<QuestionRepository>(provider => new QuestionRepository(dbPath));
 
             // Registreer QuestionPage
             builder.Services.AddTransient<QuestionPage>();

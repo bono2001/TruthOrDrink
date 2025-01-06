@@ -5,11 +5,11 @@ using TruthOrDrink.Models;
 
 namespace TruthOrDrink
 {
-    public class LocalDbService
+    public class QuestionRepository
     {
         private readonly SQLiteAsyncConnection _connection;
 
-        public LocalDbService(string dbPath)
+        public QuestionRepository(string dbPath)
         {
             _connection = new SQLiteAsyncConnection(dbPath);
             _connection.CreateTableAsync<Question>().Wait();
