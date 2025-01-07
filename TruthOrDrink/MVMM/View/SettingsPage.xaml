@@ -33,6 +33,27 @@
                    TextColor="White" />
         </StackLayout>
 
+        <!-- Knoppen layout -->
+        <Grid Grid.Row="1" VerticalOptions="End" HorizontalOptions="Center" RowDefinitions="Auto" ColumnDefinitions="*,*">
+            <!-- Vibrate knop -->
+            <ImageButton Source="vibrate.png"
+                         Grid.Column="0"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         WidthRequest="80"
+                         HeightRequest="80"
+                         Clicked="OnVibrateClicked" />
+
+            <!-- Flashlight knop -->
+            <ImageButton Source="flashlight.png"
+                         Grid.Column="1"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         WidthRequest="80"
+                         HeightRequest="80"
+                         Clicked="OnFlashlightClicked" />
+        </Grid>
+
         <!-- Exit knop -->
         <ImageButton Source="exiticon.png"
                      Grid.Row="2"
