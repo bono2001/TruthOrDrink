@@ -8,6 +8,9 @@ namespace TruthOrDrink
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+
+
+           
         }
 
 
