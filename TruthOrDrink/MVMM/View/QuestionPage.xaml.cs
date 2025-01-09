@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TruthOrDrink.Models;
+using TruthOrDrink.MVMM.Models;
 
 namespace TruthOrDrink
 {
@@ -34,6 +35,7 @@ namespace TruthOrDrink
             BindingContext = this;
 
             LoadQuestions();
+            LoadCategories();
         }
 
         private async void LoadQuestions()
@@ -41,7 +43,18 @@ namespace TruthOrDrink
             try
             {
                 var storedQuestions = await _dbService.GetQuestionsAsync();
-                var playerQuestions = storedQuestions.Where(q => !string.IsNullOrEmpty(q.PlayerQuestion)).ToList();
+                var categories = await _dbService.GetCategoriesAsync();
+
+                // Filter alleen player-created vragen
+                var playerQuestions = storedQuestions
+                    .Where(q => !string.IsNullOrEmpty(q.PlayerQuestion))
+                    .ToList();
+
+                // Wijs categorieën toe aan vragen
+                foreach (var question in playerQuestions)
+                {
+                    question.Category = categories.FirstOrDefault(c => c.Id == question.CategoryId);
+                }
 
                 Questions.Clear();
                 foreach (var question in playerQuestions)
@@ -55,13 +68,38 @@ namespace TruthOrDrink
             }
         }
 
+        private async void LoadCategories()
+        {
+            try
+            {
+                var categories = await _dbService.GetCategoriesAsync();
+
+                // Voeg standaardcategorieën toe als er geen categorieën zijn
+                if (categories == null || !categories.Any())
+                {
+                    await _dbService.AddCategoryAsync(new Category { Name = "Vrienden" });
+                    await _dbService.AddCategoryAsync(new Category { Name = "Spicy Koppel" });
+                    await _dbService.AddCategoryAsync(new Category { Name = "Grappig" });
+                    await _dbService.AddCategoryAsync(new Category { Name = "Serieus" });
+
+                    categories = await _dbService.GetCategoriesAsync();
+                }
+
+                CategoryPicker.ItemsSource = categories;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fout bij het laden van categorieën: {ex.Message}");
+            }
+        }
+
         private async void CreateQuestion(object sender, EventArgs e)
         {
             string questionText = QuestionEntry.Text;
             string difficulty = DifficultyPicker.SelectedItem as string;
-            string category = CategoryPicker.SelectedItem as string;
+            var selectedCategory = CategoryPicker.SelectedItem as Category;
 
-            if (string.IsNullOrEmpty(questionText) || string.IsNullOrEmpty(difficulty) || string.IsNullOrEmpty(category))
+            if (string.IsNullOrEmpty(questionText) || string.IsNullOrEmpty(difficulty) || selectedCategory == null)
             {
                 await DisplayAlert("Fout", "Alle velden moeten worden ingevuld.", "OK");
                 return;
@@ -70,7 +108,7 @@ namespace TruthOrDrink
             var newQuestion = new Question
             {
                 Difficulty = difficulty,
-                Category = category,
+                CategoryId = selectedCategory.Id,
                 PlayerQuestion = questionText
             };
 
@@ -79,6 +117,7 @@ namespace TruthOrDrink
                 await _dbService.AddQuestionAsync(newQuestion);
                 Questions.Add(newQuestion);
 
+                // Maak invoervelden leeg
                 QuestionEntry.Text = string.Empty;
                 DifficultyPicker.SelectedItem = null;
                 CategoryPicker.SelectedItem = null;

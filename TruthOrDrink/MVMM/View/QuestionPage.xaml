@@ -29,7 +29,7 @@
                             <!-- Vraag en categorie -->
                             <StackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start">
                                 <Label Text="{Binding PlayerQuestion}" FontSize="18" TextColor="Black" />
-                                <Label Text="{Binding Category}" FontSize="14" TextColor="Gray" />
+                                <Label Text="{Binding Category.Name}" FontSize="14" TextColor="Gray" />
                             </StackLayout>
 
                             <!-- Wijzig-knop -->
@@ -65,7 +65,6 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-
         <!-- Formulier en knop -->
         <StackLayout Grid.Row="2" Orientation="Vertical" Padding="10" Spacing="10">
             <Entry x:Name="QuestionEntry"
@@ -92,16 +91,8 @@
                     Title="Kies Categorie"
                     FontSize="16"
                     BackgroundColor="White"
-                    TextColor="Black">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Vrienden</x:String>
-                        <x:String>Spicy Koppel</x:String>
-                        <x:String>Grappig</x:String>
-                        <x:String>Serieus</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                    TextColor="Black"
+                    ItemDisplayBinding="{Binding Name}" />
 
             <Button Text="Voeg vraag toe"
                     FontSize="16"
