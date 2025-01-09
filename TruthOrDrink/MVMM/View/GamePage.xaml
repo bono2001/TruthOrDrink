@@ -4,9 +4,7 @@
              xmlns:vm="clr-namespace:TruthOrDrink.ViewModels"
              x:Class="TruthOrDrink.GamePage"
              NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
-        <vm:GamePageViewModel />
-    </ContentPage.BindingContext>
+    
 
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">

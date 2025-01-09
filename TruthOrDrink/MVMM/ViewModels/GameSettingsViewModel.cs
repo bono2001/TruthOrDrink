@@ -1,5 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using TruthOrDrink.Models;
+using TruthOrDrink.MVMM.Models;
 
 namespace TruthOrDrink.ViewModels
 {
@@ -7,29 +11,16 @@ namespace TruthOrDrink.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private readonly QuestionRepository _dbService;
+
         // Dropdown-opties
-        public ObservableCollection<string> Categories { get; set; }
-        public ObservableCollection<string> QuestionLists { get; set; }
-        public ObservableCollection<string> RoundsOptions { get; set; }
-        public ObservableCollection<string> BoldnessOptions { get; set; }
+        public ObservableCollection<Category> Categories { get; set; } = new();
+        public ObservableCollection<string> DifficultyOptions { get; set; } = new();
+        public ObservableCollection<string> RoundsOptions { get; set; } = new();
 
         // Geselecteerde waarden
-        private ObservableCollection<string> _selectedBoldnessOptions = new ObservableCollection<string>();
-        public ObservableCollection<string> SelectedBoldnessOptions
-        {
-            get => _selectedBoldnessOptions;
-            set
-            {
-                if (_selectedBoldnessOptions != value)
-                {
-                    _selectedBoldnessOptions = value;
-                    OnPropertyChanged(nameof(SelectedBoldnessOptions));
-                }
-            }
-        }
-
-        private string _selectedCategory;
-        public string SelectedCategory
+        private Category _selectedCategory;
+        public Category SelectedCategory
         {
             get => _selectedCategory;
             set
@@ -42,16 +33,16 @@ namespace TruthOrDrink.ViewModels
             }
         }
 
-        private string _selectedQuestionList;
-        public string SelectedQuestionList
+        private string _selectedDifficulty;
+        public string SelectedDifficulty
         {
-            get => _selectedQuestionList;
+            get => _selectedDifficulty;
             set
             {
-                if (_selectedQuestionList != value)
+                if (_selectedDifficulty != value)
                 {
-                    _selectedQuestionList = value;
-                    OnPropertyChanged(nameof(SelectedQuestionList));
+                    _selectedDifficulty = value;
+                    OnPropertyChanged(nameof(SelectedDifficulty));
                 }
             }
         }
@@ -71,48 +62,86 @@ namespace TruthOrDrink.ViewModels
         }
 
         // Constructor
-        public GameSettingsViewModel()
+        public GameSettingsViewModel(QuestionRepository dbService)
         {
-            // Dropdown-opties initialiseren
-            Categories = new ObservableCollection<string>
-            {
-                "Algemeen",
-                "Feest",
-                "Persoonlijk",
-                "Intiem"
-            };
+            _dbService = dbService;
 
-            QuestionLists = new ObservableCollection<string>
-            {
-                "Standaard Vragen",
-                "Eigen Vragen",
-                "Gemengd"
-            };
-
-            RoundsOptions = new ObservableCollection<string>
-            {
-                "5 Rondes",
-                "10 Rondes",
-                "15 Rondes",
-                "20 Rondes"
-            };
-
-            BoldnessOptions = new ObservableCollection<string>
-            {
-                "☆",
-                "☆☆",
-                "☆☆☆",
-                "☆☆☆☆",
-                "☆☆☆☆☆"
-            };
-
-            // Defaultwaarden instellen
-            SelectedCategory = Categories[0];
-            SelectedQuestionList = QuestionLists[0];
-            SelectedRounds = RoundsOptions[0];
+            // Laad opties
+            LoadCategories();
+            LoadDifficultyOptions();
+            LoadRoundsOptions();
         }
 
-        // Helper-methode voor PropertyChanged
+        // Categorieën laden
+        private async void LoadCategories()
+        {
+            if (_dbService == null)
+            {
+                Console.WriteLine("[DOTNET] Database niet beschikbaar. Hardcoded categorieën worden geladen.");
+                UseHardcodedCategories();
+                return;
+            }
+
+            try
+            {
+                var categories = await _dbService.GetCategoriesAsync();
+
+                if (categories == null || categories.Count == 0)
+                {
+                    Console.WriteLine("[DOTNET] Geen categorieën gevonden in de database. Hardcoded categorieën worden geladen.");
+                    UseHardcodedCategories();
+                }
+                else
+                {
+                    Categories.Clear();
+                    foreach (var category in categories)
+                    {
+                        Categories.Add(category);
+                    }
+                }
+
+                SelectedCategory = null; // Geen standaardcategorie
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DOTNET] Fout bij het laden van categorieën: {ex.Message}");
+                UseHardcodedCategories();
+            }
+        }
+
+        private void UseHardcodedCategories()
+        {
+            Categories.Clear();
+            Categories.Add(new Category { Name = "Vrienden" });
+            Categories.Add(new Category { Name = "Grappig" });
+            Categories.Add(new Category { Name = "Spicy Koppel" });
+            Categories.Add(new Category { Name = "Serieus" });
+        }
+
+        // Moeilijkheidsopties instellen
+        private void LoadDifficultyOptions()
+        {
+            DifficultyOptions.Clear();
+            DifficultyOptions.Add("Makkelijk");
+            DifficultyOptions.Add("Gemiddeld");
+            DifficultyOptions.Add("Moeilijk");
+
+            SelectedDifficulty = null; // Geen standaard selectie
+        }
+
+        // Rondes instellen
+        private void LoadRoundsOptions()
+        {
+            RoundsOptions.Clear();
+            RoundsOptions.Add("5 Rondes");
+            RoundsOptions.Add("10 Rondes");
+            RoundsOptions.Add("15 Rondes");
+            RoundsOptions.Add("20 Rondes");
+
+            SelectedRounds = null; // Geen standaard selectie
+        }
+
+        // PropertyChanged helper
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
