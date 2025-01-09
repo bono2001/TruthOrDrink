@@ -1,17 +1,21 @@
 using Microsoft.Maui.Controls;
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using TruthOrDrink.Models;
 using TruthOrDrink.ViewModels;
 
 namespace TruthOrDrink
 {
     public partial class ScorePage : ContentPage
     {
-        public ScorePage()
+        public ScorePage(List<Player> players)
         {
             InitializeComponent();
-            BindingContext = new GamePageViewModel();
+            BindingContext = new ScorePageViewModel(players);
         }
+
+
+
 
         private async void OnBackToStartClicked(object sender, EventArgs e)
         {
@@ -20,7 +24,12 @@ namespace TruthOrDrink
 
         private async void OnShareClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SharePage());
+            if (BindingContext is ScorePageViewModel vm)
+            {
+                var players = vm.Players.ToList(); // Haal de spelers op vanuit de ViewModel
+                await Navigation.PushAsync(new SharePage(players));
+            }
         }
+
     }
 }

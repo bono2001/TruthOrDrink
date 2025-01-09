@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:TruthOrDrink.ViewModels"
-             x:Class="TruthOrDrink.GamePageSettings"
+             x:Class="TruthOrDrink.GameSetting"
              NavigationPage.HasNavigationBar="False">
-    <ContentPage.BindingContext>
-        <vm:GameSettingsViewModel />
-    </ContentPage.BindingContext>
 
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -26,49 +22,60 @@
                        HorizontalOptions="Center"
                        TextColor="White" />
 
-                <!-- Gewaagdheid Multi-Select -->
-                <Label Text="Gewaagdheid"
+                <!-- Categorie Picker -->
+                <Label Text="Categorieën"
                        FontSize="18"
                        TextColor="White"
                        HorizontalOptions="Start" />
-                <CollectionView ItemsSource="{Binding BoldnessOptions}"
-                                SelectionMode="Multiple"
-                                SelectedItems="{Binding SelectedBoldnessOptions}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal" Padding="5">
-                                <Label Text="{Binding}"
-                                       FontSize="18"
-                                       TextColor="White"
-                                       VerticalOptions="Center" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <Picker 
+                    ItemsSource="{Binding Categories}" 
+                    SelectedItem="{Binding SelectedCategory}" 
+                    Title="Selecteer een categorie"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    HorizontalOptions="FillAndExpand" />
 
-                <!-- Categorie Dropdown -->
-                <Picker ItemsSource="{Binding Categories}"
-                        SelectedItem="{Binding SelectedCategory}"
-                        Title="Categorieën"
-                        BackgroundColor="White"
-                        TextColor="Black"
-                        HorizontalOptions="FillAndExpand" />
+                <!-- Moeilijkheid Picker -->
+                <Label Text="Moeilijkheid"
+                       FontSize="18"
+                       TextColor="White"
+                       HorizontalOptions="Start" />
+                <Picker 
+                    ItemsSource="{Binding Difficulties}" 
+                    SelectedItem="{Binding SelectedDifficulty}" 
+                    Title="Selecteer een moeilijkheid"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    HorizontalOptions="FillAndExpand" />
 
-                <!-- Vragenlijst Dropdown -->
-                <Picker ItemsSource="{Binding QuestionLists}"
-                        SelectedItem="{Binding SelectedQuestionList}"
-                        Title="Vragenlijst"
-                        BackgroundColor="White"
-                        TextColor="Black"
-                        HorizontalOptions="FillAndExpand" />
 
-                <!-- Rondes Dropdown -->
-                <Picker ItemsSource="{Binding RoundsOptions}"
-                        SelectedItem="{Binding SelectedRounds}"
-                        Title="Aantal Rondes"
-                        BackgroundColor="White"
-                        TextColor="Black"
-                        HorizontalOptions="FillAndExpand" />
+                <!-- vragen Picker -->
+
+                <Label Text="Vragenopties"
+                       FontSize="18"
+                       TextColor="White"
+                       HorizontalOptions="Start" />
+                <Picker 
+                    ItemsSource="{Binding QuestionOptions}" 
+                    SelectedItem="{Binding SelectedQuestionOption}" 
+                    Title="Selecteer vragenoptie"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    HorizontalOptions="FillAndExpand" />
+
+
+                <!-- Rondes Picker -->
+                <Label Text="Aantal Rondes"
+                       FontSize="18"
+                       TextColor="White"
+                       HorizontalOptions="Start" />
+                <Picker 
+                    ItemsSource="{Binding RoundsOptions}"
+                    SelectedItem="{Binding SelectedRounds}"
+                    Title="Selecteer het aantal rondes"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    HorizontalOptions="FillAndExpand" />
             </StackLayout>
 
             <!-- Navigatie Knoppen -->
@@ -78,16 +85,12 @@
                         BackgroundColor="Red"
                         TextColor="White"
                         CornerRadius="10"
-                        BorderColor="Black"
-                        BorderWidth="2"
                         WidthRequest="150"
                         Clicked="OnBackClicked" />
                 <Button Text="Bevestigen"
                         FontSize="18"
                         BackgroundColor="Green"
                         TextColor="White"
-                        BorderColor="Black"
-                        BorderWidth="2"
                         CornerRadius="10"
                         WidthRequest="150"
                         Clicked="OnConfirmClicked" />
