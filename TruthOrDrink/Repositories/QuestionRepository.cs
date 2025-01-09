@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TruthOrDrink.Models;
+using TruthOrDrink.MVMM.Models;
 
 namespace TruthOrDrink
 {
@@ -12,7 +13,18 @@ namespace TruthOrDrink
         public QuestionRepository(string dbPath)
         {
             _connection = new SQLiteAsyncConnection(dbPath);
+            _connection.CreateTableAsync<Category>().Wait();
             _connection.CreateTableAsync<Question>().Wait();
+        }
+
+        public async Task<List<Category>> GetCategoriesAsync()
+        {
+            return await _connection.Table<Category>().ToListAsync();
+        }
+
+        public async Task AddCategoryAsync(Category category)
+        {
+            await _connection.InsertAsync(category);
         }
 
         public async Task<List<Question>> GetQuestionsAsync()
