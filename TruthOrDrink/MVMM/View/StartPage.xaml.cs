@@ -2,6 +2,8 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Devices;
 using System;
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Core;
 
 namespace TruthOrDrink
 {
