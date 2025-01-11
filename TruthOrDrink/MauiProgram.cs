@@ -21,6 +21,9 @@ namespace TruthOrDrink
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "TruthOrDrink.db");
             builder.Services.AddSingleton<QuestionRepository>(provider => new QuestionRepository(dbPath));
 
+            // Registreer ZenQuotesService
+            builder.Services.AddSingleton<ZenQuotesService>();
+
             // Registreer QuestionPage
             builder.Services.AddTransient<QuestionPage>();
 
@@ -32,4 +35,3 @@ namespace TruthOrDrink
         }
     }
 }
-//deze versie werk
