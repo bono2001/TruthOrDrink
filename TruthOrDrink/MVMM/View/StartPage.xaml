@@ -34,6 +34,12 @@
                                  WidthRequest="40"
                                  HeightRequest="40"
                                  Clicked="OnFriendsClicked" />
+
+                    <!-- Blaas test -->
+                    <ImageButton Source="blaas.png"
+                                 WidthRequest="50"
+                                 HeightRequest="50"
+                                 Clicked="OnBlowTestClicked" />
                 </StackLayout>
 
                 <!-- Dobbelsteen knop -->
