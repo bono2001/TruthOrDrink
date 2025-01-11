@@ -190,5 +190,24 @@ namespace TruthOrDrink
         {
             await Navigation.PopAsync();
         }
+
+
+        private readonly ZenQuotesService _zenQuotesService = new();
+
+        private async void OnLightBulbTapped(object sender, EventArgs e)
+        {
+            try
+            {
+                string quote = await _zenQuotesService.GetRandomQuoteAsync();
+                await DisplayAlert("Inspiratie Eigen Vraag", quote, "OK");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fout bij het ophalen van de quote: {ex.Message}");
+                await DisplayAlert("Fout", "Kon geen quote ophalen. Controleer je internetverbinding.", "OK");
+            }
+        }
+
+
     }
 }

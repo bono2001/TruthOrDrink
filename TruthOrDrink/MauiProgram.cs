@@ -1,6 +1,5 @@
-﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using SQLitePCL;
 
 namespace TruthOrDrink
 {
@@ -18,21 +17,15 @@ namespace TruthOrDrink
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // Initialiseer SQLite om compatibiliteitsproblemen te voorkomen
-            Batteries_V2.Init();
-
-            // Databasepad instellen en repository registreren
+            // Registreer de LocalDbService met een databasepad
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "TruthOrDrink.db");
-            Console.WriteLine($"[DOTNET] Databasepad: {dbPath}");
-
-            // Voeg de QuestionRepository toe aan de DI-container
             builder.Services.AddSingleton<QuestionRepository>(provider => new QuestionRepository(dbPath));
 
-            // Registreer QuestionPage en andere pagina's
+            // Registreer ZenQuotesService
+            builder.Services.AddSingleton<ZenQuotesService>();
+
+            // Registreer QuestionPage
             builder.Services.AddTransient<QuestionPage>();
-            builder.Services.AddTransient<PlayerPage>();
-            builder.Services.AddTransient<GameSetting>();
-            builder.Services.AddTransient<GamePage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -42,4 +35,3 @@ namespace TruthOrDrink
         }
     }
 }
-//deze versie werk
