@@ -93,6 +93,7 @@ namespace TruthOrDrink
             }
         }
 
+
         private async void CreateQuestion(object sender, EventArgs e)
         {
             string questionText = QuestionEntry.Text;
