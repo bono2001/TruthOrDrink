@@ -2,13 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TruthOrDrink.SettingsPage"
-             NavigationPage.HasNavigationBar="False">
-    <ContentPage.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="Blue" Offset="0.0" />
-            <GradientStop Color="Red" Offset="1.0" />
-        </LinearGradientBrush>
-    </ContentPage.Background>
+             NavigationPage.HasNavigationBar="False"
+             Background="{Binding BackgroundBrush}">
 
     <Grid RowDefinitions="Auto,*,Auto" Padding="20">
         <!-- Header -->
@@ -21,13 +16,21 @@
         </StackLayout>
 
         <!-- Instellingen opties -->
-        <StackLayout Grid.Row="1" Padding="20" VerticalOptions="Start" HorizontalOptions="Center" Spacing="10">
+        <StackLayout Grid.Row="1" Padding="20" VerticalOptions="Start" HorizontalOptions="Center" Spacing="20">
             <Label Text="Optie 1: Geluid aan/uit" 
                    FontSize="18" 
                    TextColor="White" />
-            <Label Text="Optie 2: Thema wijzigen" 
-                   FontSize="18" 
-                   TextColor="White" />
+
+            <!-- Dark Mode Schakelaar -->
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="Dark Mode"
+                       FontSize="18"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       Margin="0,0,10,0" />
+                <Switch IsToggled="{Binding IsDarkMode}" />
+            </StackLayout>
+
             <Label Text="Optie 3: Over deze app" 
                    FontSize="18" 
                    TextColor="White" />
