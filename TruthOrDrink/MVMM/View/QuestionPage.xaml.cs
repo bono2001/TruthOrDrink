@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TruthOrDrink.Models;
 using TruthOrDrink.MVMM.Models;
+using TruthOrDrink.Services;
 
 namespace TruthOrDrink
 {
     public partial class QuestionPage : ContentPage
     {
         private readonly QuestionRepository _dbService;
+        private readonly QuotesService _quotesService;
 
         public ObservableCollection<Question> Questions { get; } = new();
 
@@ -22,6 +24,7 @@ namespace TruthOrDrink
             InitializeComponent();
 
             _dbService = App.Services.GetService<QuestionRepository>();
+            _quotesService = new QuotesService(); // Initialiseer QuotesService
 
             if (_dbService == null)
             {
@@ -45,12 +48,10 @@ namespace TruthOrDrink
                 var storedQuestions = await _dbService.GetQuestionsAsync();
                 var categories = await _dbService.GetCategoriesAsync();
 
-                // Filter alleen player-created vragen
                 var playerQuestions = storedQuestions
                     .Where(q => !string.IsNullOrEmpty(q.PlayerQuestion))
                     .ToList();
 
-                // Wijs categorieën toe aan vragen
                 foreach (var question in playerQuestions)
                 {
                     question.Category = categories.FirstOrDefault(c => c.Id == question.CategoryId);
@@ -64,7 +65,7 @@ namespace TruthOrDrink
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fout bij het laden van vragen uit de database: {ex.Message}");
+                Console.WriteLine($"Fout bij het laden van vragen: {ex.Message}");
             }
         }
 
@@ -74,7 +75,6 @@ namespace TruthOrDrink
             {
                 var categories = await _dbService.GetCategoriesAsync();
 
-                // Voeg standaardcategorieën toe als er geen categorieën zijn
                 if (categories == null || !categories.Any())
                 {
                     await _dbService.AddCategoryAsync(new Category { Name = "Vrienden" });
@@ -117,7 +117,6 @@ namespace TruthOrDrink
                 await _dbService.AddQuestionAsync(newQuestion);
                 Questions.Add(newQuestion);
 
-                // Maak invoervelden leeg
                 QuestionEntry.Text = string.Empty;
                 DifficultyPicker.SelectedItem = null;
                 CategoryPicker.SelectedItem = null;
@@ -126,8 +125,7 @@ namespace TruthOrDrink
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fout bij het toevoegen van een vraag aan de database: {ex.Message}");
-                await DisplayAlert("Fout", "Er is iets misgegaan bij het opslaan van de vraag.", "OK");
+                Console.WriteLine($"Fout bij het toevoegen van een vraag: {ex.Message}");
             }
         }
 
@@ -148,13 +146,10 @@ namespace TruthOrDrink
             {
                 await _dbService.DeleteQuestionAsync(question);
                 Questions.Remove(question);
-
-                await DisplayAlert("Succes", "De vraag is verwijderd!", "OK");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fout bij het verwijderen van een vraag uit de database: {ex.Message}");
-                await DisplayAlert("Fout", "Er is iets misgegaan bij het verwijderen van de vraag.", "OK");
+                Console.WriteLine($"Fout bij verwijderen: {ex.Message}");
             }
         }
 
@@ -174,16 +169,55 @@ namespace TruthOrDrink
             {
                 question.PlayerQuestion = newQuestionText;
                 await _dbService.UpdateQuestionAsync(question);
-
-                LoadQuestions(); // Herlaad de lijst
-                await DisplayAlert("Succes", "De vraag is gewijzigd!", "OK");
+                LoadQuestions();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fout bij het wijzigen van een vraag: {ex.Message}");
-                await DisplayAlert("Fout", "Er is iets misgegaan bij het wijzigen van de vraag.", "OK");
+                Console.WriteLine($"Fout bij wijzigen: {ex.Message}");
             }
         }
+
+        private async void FetchRandomQuote(object sender, EventArgs e)
+        {
+            Console.WriteLine("FetchRandomQuote werd aangeroepen.");
+
+            try
+            {
+                Console.WriteLine("Probeer een quote op te halen via QuotesService...");
+                string quote = await _quotesService.FetchRandomQuoteAsync();
+                Console.WriteLine($"Quote succesvol opgehaald: {quote}");
+
+                if (string.IsNullOrEmpty(quote))
+                {
+                    Console.WriteLine("De opgehaalde quote is leeg of null!");
+                    await DisplayAlert("Fout", "De opgehaalde quote is leeg.", "OK");
+                    return;
+                }
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    if (QuestionEntry == null)
+                    {
+                        Console.WriteLine("QuestionEntry is null! Controleer je XAML.");
+                        return;
+                    }
+
+                    QuestionEntry.Text = quote;
+                    Console.WriteLine("Quote succesvol in QuestionEntry geplaatst.");
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fout opgetreden: {ex.Message}");
+                await DisplayAlert("Fout", ex.Message, "OK");
+            }
+        }
+
+
+
+
+
+
 
         private async void OnBackClicked(object sender, EventArgs e)
         {

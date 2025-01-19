@@ -34,44 +34,45 @@
 
                             <!-- Wijzig-knop -->
                             <Button Text="✏️"
-                            Grid.Column="1"
-                            FontSize="12"
-                            WidthRequest="60"
-                            HeightRequest="30"
-                            BackgroundColor="Blue"
-                            TextColor="White"
-                            CornerRadius="15"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UpdateQuestionCommand}"
-                            CommandParameter="{Binding .}" />
+                                    Grid.Column="1"
+                                    FontSize="12"
+                                    WidthRequest="60"
+                                    HeightRequest="30"
+                                    BackgroundColor="Blue"
+                                    TextColor="White"
+                                    CornerRadius="15"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UpdateQuestionCommand}"
+                                    CommandParameter="{Binding .}" />
 
                             <!-- Verwijder-knop -->
                             <Button Text="🗑️"
-                            Grid.Column="2"
-                            FontSize="12"
-                            WidthRequest="80"
-                            HeightRequest="30"
-                            BackgroundColor="Red"
-                            TextColor="White"
-                            CornerRadius="15"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteQuestionCommand}"
-                            CommandParameter="{Binding .}" />
+                                    Grid.Column="2"
+                                    FontSize="12"
+                                    WidthRequest="80"
+                                    HeightRequest="30"
+                                    BackgroundColor="Red"
+                                    TextColor="White"
+                                    CornerRadius="15"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteQuestionCommand}"
+                                    CommandParameter="{Binding .}" />
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Formulier en knop -->
+        <!-- Formulier en knoppen -->
         <StackLayout Grid.Row="2" Orientation="Vertical" Padding="10" Spacing="10">
             <Entry x:Name="QuestionEntry"
                    Placeholder="Typ je vraag hier..."
                    FontSize="18"
                    BackgroundColor="White"
-                   TextColor="Black" />
+                   TextColor="Black" /> 
+
 
             <Picker x:Name="DifficultyPicker"
                     Title="Kies Moeilijkheidsgraad"
@@ -94,17 +95,25 @@
                     TextColor="Black"
                     ItemDisplayBinding="{Binding Name}" />
 
-            <Button Text="Voeg vraag toe"
-                    FontSize="16"
-                    WidthRequest="150"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    BorderColor="Black"
-                    BorderWidth="2"
-                    CornerRadius="10"
-                    TextColor="White"
-                    BackgroundColor="Green"
-                    Clicked="CreateQuestion" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                <Button Text="Voeg vraag toe"
+                        FontSize="16"
+                        WidthRequest="150"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        BorderColor="Black"
+                        BorderWidth="2"
+                        CornerRadius="10"
+                        TextColor="White"
+                        BackgroundColor="Green"
+                        Clicked="CreateQuestion" />
+
+                <ImageButton Source="lightbulb.png"
+                             WidthRequest="50"
+                             HeightRequest="50"
+                             HorizontalOptions="Center"
+                             Clicked="FetchRandomQuote" />
+            </StackLayout>
         </StackLayout>
 
         <StackLayout Grid.Row="3" Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="FillAndExpand" Padding="10">
